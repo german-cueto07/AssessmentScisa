@@ -69,4 +69,30 @@ dotnet test
 
 Deberías ver cómo se ejecutan todos los escenarios del `Given/When/Then` descritos en el assessment y finalizan exitosamente.
 
+PD. Le pedí a una IA que me diera dummy data para probar los endpoints. Dejo el script debajo para usarlo igualmente
+
+```sql
+INSERT INTO Categories (Name, Description) VALUES
+('Ciberseguridad', 'Herramientas, hardware y recursos para pentesting'),
+('Ropa Deportiva', 'Indumentaria para entrenamiento físico y fútbol'),
+('Software', 'Licencias y herramientas para desarrollo y bases de datos'),
+('Refrescos', 'Bebidas carbonatadas'); -- La agregamos porque tu test de Reqnroll la necesita
+
+-- Insertar Productos
+INSERT INTO Products (Name, Description) VALUES
+('Adaptador de red USB', 'Tarjeta compatible con modo monitor para escanear redes'),
+('Jersey FC Barcelona', 'Camiseta de local temporada 25/26'),
+('Cuerda de saltar', 'Cuerda de alta velocidad para calentamiento y resistencia'),
+('Suscripción IDE Rider', 'Licencia anual para desarrollo en C# y .NET'),
+('Balón de Oro Minimalista', 'Trofeo decorativo liso y sin animaciones realistas');
+
+-- Insertar la relación N:N (Categoría - Producto)
+INSERT INTO CategoryProduct (CategoriesId, ProductsId) VALUES
+(1, 1), 
+(2, 2),
+(2, 3), 
+(3, 4), 
+(2, 5);
+```
+
 ***
