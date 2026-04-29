@@ -76,7 +76,7 @@ INSERT INTO Categories (Name, Description) VALUES
 ('Ciberseguridad', 'Herramientas, hardware y recursos para pentesting'),
 ('Ropa Deportiva', 'Indumentaria para entrenamiento físico y fútbol'),
 ('Software', 'Licencias y herramientas para desarrollo y bases de datos'),
-('Refrescos', 'Bebidas carbonatadas'); -- La agregamos porque tu test de Reqnroll la necesita
+('Refrescos', 'Bebidas carbonatadas'); 
 
 -- Insertar Productos
 INSERT INTO Products (Name, Description) VALUES
