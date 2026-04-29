@@ -41,14 +41,22 @@ docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=SuperAssessment123' -p 1434:
 ```
 
 ### 2. Configurar la Conexión (appsettings.json)
-Antes de correr las migraciones, es necesario indicarle a la API dónde está la base de datos. Abre el archivo `appsettings.json` (dentro del proyecto de la API) y asegúrate de que la cadena de conexión apunte al puerto `1434` y tenga la contraseña del contenedor que acabamos de levantar. Debe verse así:
+Es necesario indicarle a la API dónde está la base de datos. Abre el archivo `appsettings.json` (dentro del proyecto de la API) y asegúrate de que la cadena de conexión apunte al puerto `1434` y tenga la contraseña del contenedor que acabamos de levantar. Debe verse así:
 
 ```json
 {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost,1434;Database=AssessmentDB;User Id=sa;Password=SuperAssessment123;TrustServerCertificate=True;"
   }
 }
+
 ```
 
 ### 3. Crear las Tablas (Migraciones)
