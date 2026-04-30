@@ -12,6 +12,16 @@ Me llevo muchísimo aprendizaje de esta semana, especialmente en cómo estructur
 
 ---
 
+## Actualizaciones: Después de la correción
+Tras recibir los comentarios sobre la primera entrega, agregué los escenarios que me faltaron para asegurar que todos los flujos críticos del sistema estén validados.
+
+**Nuevos escenarios implementados:**
+*   **Categorías:** Listado completo, vista de detalle por ID, edición exitosa, validación de nombres vacíos en edición y flujo de eliminación (incluyendo el caso de éxito tras limpiar productos asociados).
+*   **Productos:** Réplica del CRUD completo con sus respectivos escenarios de error y éxito.
+*   **Refactorización de Steps:** Ajusté las expresiones regulares en los *Step Definitions* para evitar errores en Reqnroll y permitir pruebas completas. 
+
+---
+
 ##  Tecnologías y Herramientas Utilizadas
 * **.NET Core 8** (Web API)
 * **Entity Framework Core** (Code-First)
