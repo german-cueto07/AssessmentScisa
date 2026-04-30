@@ -105,7 +105,7 @@ namespace Assessment.Tests.Features
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Products.feature.ndjson", 5);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Products.feature.ndjson", 10);
         }
         
         async global::System.Threading.Tasks.Task global::Xunit.IAsyncLifetime.InitializeAsync()
@@ -252,6 +252,182 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
 #line 23
     await testRunner.AndAsync("Debe de ver que categorias pertenece con su nombre", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Xunit.SkippableFactAttribute(DisplayName="El usuario puede ver el listado de los productos")]
+        [global::Xunit.TraitAttribute("FeatureTitle", "El usuario puede gestionar los productos")]
+        [global::Xunit.TraitAttribute("Description", "El usuario puede ver el listado de los productos")]
+        public async global::System.Threading.Tasks.Task ElUsuarioPuedeVerElListadoDeLosProductos()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "3";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("El usuario puede ver el listado de los productos", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 25
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 26
+    await testRunner.GivenAsync("Existen productos en la base de datos", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 27
+    await testRunner.WhenAsync("hago un GET de lista a \"/api/v1/products\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 28
+    await testRunner.ThenAsync("Deberia recibir status 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Xunit.SkippableFactAttribute(DisplayName="El usuario puede ver cada uno de los productos")]
+        [global::Xunit.TraitAttribute("FeatureTitle", "El usuario puede gestionar los productos")]
+        [global::Xunit.TraitAttribute("Description", "El usuario puede ver cada uno de los productos")]
+        public async global::System.Threading.Tasks.Task ElUsuarioPuedeVerCadaUnoDeLosProductos()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "4";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("El usuario puede ver cada uno de los productos", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 30
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 31
+    await testRunner.GivenAsync("Existe un producto en la base de datos", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 32
+    await testRunner.WhenAsync("hago un GET al producto especifico", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 33
+    await testRunner.ThenAsync("Deberia recibir status 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Xunit.SkippableFactAttribute(DisplayName="El usuario puede editar el producto")]
+        [global::Xunit.TraitAttribute("FeatureTitle", "El usuario puede gestionar los productos")]
+        [global::Xunit.TraitAttribute("Description", "El usuario puede editar el producto")]
+        public async global::System.Threading.Tasks.Task ElUsuarioPuedeEditarElProducto()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "5";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("El usuario puede editar el producto", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 35
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 36
+    await testRunner.GivenAsync("Existe un producto en la base de datos", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 37
+    await testRunner.AndAsync("Modifico el nombre del producto a \"Actualizado\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 38
+    await testRunner.WhenAsync("hago un PUT al producto especifico", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 39
+    await testRunner.ThenAsync("Deberia recibir status 204", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Xunit.SkippableFactAttribute(DisplayName="El usuario intenta editar el producto con un nombre vacio")]
+        [global::Xunit.TraitAttribute("FeatureTitle", "El usuario puede gestionar los productos")]
+        [global::Xunit.TraitAttribute("Description", "El usuario intenta editar el producto con un nombre vacio")]
+        public async global::System.Threading.Tasks.Task ElUsuarioIntentaEditarElProductoConUnNombreVacio()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "6";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("El usuario intenta editar el producto con un nombre vacio", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 41
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 42
+    await testRunner.GivenAsync("Existe un producto en la base de datos", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 43
+    await testRunner.AndAsync("Modifico el nombre del producto a vacio", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 44
+    await testRunner.WhenAsync("hago un PUT al producto especifico", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 45
+    await testRunner.ThenAsync("Deberia recibir status 422", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::Xunit.SkippableFactAttribute(DisplayName="El usuario puede destruir un producto")]
+        [global::Xunit.TraitAttribute("FeatureTitle", "El usuario puede gestionar los productos")]
+        [global::Xunit.TraitAttribute("Description", "El usuario puede destruir un producto")]
+        public async global::System.Threading.Tasks.Task ElUsuarioPuedeDestruirUnProducto()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "7";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("El usuario puede destruir un producto", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 47
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 48
+    await testRunner.GivenAsync("Existe un producto en la base de datos", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 49
+    await testRunner.WhenAsync("hago un DELETE al producto especifico", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 50
+    await testRunner.ThenAsync("Deberia recibir status 204", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

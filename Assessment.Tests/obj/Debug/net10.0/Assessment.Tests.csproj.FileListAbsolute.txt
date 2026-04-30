@@ -474,3 +474,4 @@
 /Users/germo/Assessment/Assessment.Tests/obj/Debug/net10.0/Assessment.Tests.pdb
 /Users/germo/Assessment/Assessment.Tests/obj/Debug/net10.0/Assessment.Tests.genruntimeconfig.cache
 /Users/germo/Assessment/Assessment.Tests/obj/Debug/net10.0/ref/Assessment.Tests.dll
+/Users/germo/Assessment/Assessment.Tests/obj/Debug/net10.0/Assessment.Tests.sourcelink.json

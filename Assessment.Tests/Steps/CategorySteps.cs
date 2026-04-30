@@ -17,6 +17,9 @@ public class CategorySteps
     private Category _categoryData = null!;
     private ProductCreateUpdateDto _productData = null!;
     private int _savedCategoryId;
+    private int _savedProductId;
+    private Category _categoryUpdateData = null!;
+    private ProductCreateUpdateDto _productUpdateData = null!;
 
     public CategorySteps()
     {
@@ -150,7 +153,7 @@ public class CategorySteps
         Assert.Contains("El nombre ya esta en uso en una de las categorias seleccionadas", responseString);
     }
 
-    [When(@"hago un GET a (.*)")]
+    [When(@"hago un GET a (/.+)")] // el regex se ajusta para aceptar endpoints como /api/v1/products o /api/v1/categories
     public async Task WhenHagoUnGETA(string endpoint)
     {
         _response = await _client.GetAsync(endpoint);
@@ -163,9 +166,108 @@ public class CategorySteps
         Assert.NotNull(productsList);
         Assert.NotEmpty(productsList);
         
-        // Verificamos el requerimiento exacto: "no únicamente el ID a la categoría si no el nombre también"
+        // verifica el requerimiento exacto: "no únicamente el ID a la categoría si no el nombre también"
         var productToVerify = productsList.First(p => p.Name == "Teclado");
         Assert.NotEmpty(productToVerify.Categories);
         Assert.False(string.IsNullOrEmpty(productToVerify.Categories.First().Name));
+    }
+ 
+    [Given(@"Existen categorias en la base de datos")]
+    [Given(@"Existe una categoria en la base de datos")]
+    public async Task GivenExisteUnaCategoriaEnLaBaseDeDatos()
+    {
+        var cat = new Category { Name = "CatTest_" + Guid.NewGuid().ToString().Substring(0, 5), Description = "Test" };
+        var res = await _client.PostAsJsonAsync("/api/v1/categories", cat);
+        _savedCategoryId = (await res.Content.ReadFromJsonAsync<Category>())!.Id;
+    }
+
+    [Given(@"Existen productos en la base de datos")]
+    [Given(@"Existe un producto en la base de datos")]
+    public async Task GivenExisteUnProductoEnLaBaseDeDatos()
+    {
+        // se crea la regla para crear una categoría porque el producto requiere al menos una categoría asignada
+        await GivenExisteUnaCategoriaEnLaBaseDeDatos();
+        
+        var prod = new ProductCreateUpdateDto { Name = "ProdTest_" + Guid.NewGuid().ToString().Substring(0, 5), CategoryIds = new List<int> { _savedCategoryId } };
+        var res = await _client.PostAsJsonAsync("/api/v1/products", prod);
+        _savedProductId = (await res.Content.ReadFromJsonAsync<ProductResponseDto>())!.Id;
+    }
+
+    [When(@"hago un GET de lista a ""(.*)""")]
+    public async Task WhenHagoUnGETDeListaA(string endpoint)
+    {
+        _response = await _client.GetAsync(endpoint);
+    }
+
+    [When(@"hago un GET a la categoria especifica")]
+    public async Task WhenHagoUnGETALaCategoriaEspecifica()
+    {
+        _response = await _client.GetAsync($"/api/v1/categories/{_savedCategoryId}");
+    }
+
+    [When(@"hago un GET al producto especifico")]
+    public async Task WhenHagoUnGETAlProductoEspecifico()
+    {
+        _response = await _client.GetAsync($"/api/v1/products/{_savedProductId}");
+    }
+
+    [Given(@"Modifico el nombre de la categoria a ""(.*)""")]
+    public void GivenModificoElNombreDeLaCategoriaA(string nuevoNombre)
+    {
+        _categoryUpdateData = new Category { Id = _savedCategoryId, Name = nuevoNombre, Description = "Actualizada" };
+    }
+
+    [Given(@"Modifico el nombre de la categoria a vacio")]
+    public void GivenModificoElNombreDeLaCategoriaAVacio()
+    {
+        _categoryUpdateData = new Category { Id = _savedCategoryId, Name = "", Description = "Vacia" };
+    }
+
+    [When(@"hago un PUT a la categoria especifica")]
+    public async Task WhenHagoUnPUTALaCategoriaEspecifica()
+    {
+        _response = await _client.PutAsJsonAsync($"/api/v1/categories/{_savedCategoryId}", _categoryUpdateData);
+    }
+
+    [Given(@"Modifico el nombre del producto a ""(.*)""")]
+    public void GivenModificoElNombreDelProductoA(string nuevoNombre)
+    {
+        _productUpdateData = new ProductCreateUpdateDto { Name = nuevoNombre, CategoryIds = new List<int> { _savedCategoryId } };
+    }
+
+    [Given(@"Modifico el nombre del producto a vacio")]
+    public void GivenModificoElNombreDelProductoAVacio()
+    {
+        _productUpdateData = new ProductCreateUpdateDto { Name = "", CategoryIds = new List<int> { _savedCategoryId } };
+    }
+
+    [When(@"hago un PUT al producto especifico")]
+    public async Task WhenHagoUnPUTAlProductoEspecifico()
+    {
+        _response = await _client.PutAsJsonAsync($"/api/v1/products/{_savedProductId}", _productUpdateData);
+    }
+
+    [When(@"hago un DELETE a la categoria especifica")]
+    public async Task WhenHagoUnDELETEALaCategoriaEspecifica()
+    {
+        _response = await _client.DeleteAsync($"/api/v1/categories/{_savedCategoryId}");
+    }
+
+    [When(@"hago un DELETE al producto especifico")]
+    public async Task WhenHagoUnDELETEAlProductoEspecifico()
+    {
+        _response = await _client.DeleteAsync($"/api/v1/products/{_savedProductId}");
+    }
+
+    [Given(@"Existe una categoria con productos asignados")]
+    public async Task GivenExisteUnaCategoriaConProductosAsignados()
+    {
+        await GivenExisteUnProductoEnLaBaseDeDatos(); // Esto crea la categoría y un producto ligado a ella
+    }
+
+    [When(@"elimino el producto asignado")]
+    public async Task WhenEliminoElProductoAsignado()
+    {
+        await _client.DeleteAsync($"/api/v1/products/{_savedProductId}");
     }
 }
