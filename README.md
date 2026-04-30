@@ -37,17 +37,36 @@ Para revisar el código y probar que todo funciona, son estos pasos:
 El proyecto está configurado para conectarse a un contenedor de Docker en el puerto `1434` porque ya tenía un contenedor en el puerto `1433` que uso para las clases y preferí hacer uno dedicado al assessment. Puedes levantar este servidor específicamente para la prueba corriendo este comando en la terminal:
 
 ```bash
-docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=SuperAssessment123!' -p 1434:1433 --name mssql_scisa_test -d mcr.microsoft.com/mssql/server:2022-latest
+docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=SuperAssessment123' -p 1434:1433 --name mssql_scisa_test -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-### 2. Crear las Tablas (Migraciones)
+### 2. Configurar la Conexión (appsettings.json)
+Es necesario indicarle a la API dónde está la base de datos. Abre el archivo `appsettings.json` (dentro del proyecto de la API) y asegúrate de que la cadena de conexión apunte al puerto `1434` y tenga la contraseña del contenedor que acabamos de levantar. Debe verse así:
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1434;Database=AssessmentDB;User Id=sa;Password=SuperAssessment123;TrustServerCertificate=True;"
+  }
+}
+
+```
+
+### 3. Crear las Tablas (Migraciones)
 Una vez que el contenedor esté corriendo, colócate en la raíz del proyecto de la API `Assessment.AP` (aquí tuve un error de type por eso es .AP) y corre la migración para que EF Core construya las tablas:
 
 ```bash
 dotnet ef database update
 ```
 
-### 3. Correr la API
+### 4. Correr la API
 Para probar los endpoints desde Swagger o Postman, ejecuta:
 ```bash
 dotnet run --project Assesment.AP
